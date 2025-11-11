@@ -1,3 +1,22 @@
+# MacOS
+.DS_Store
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+# Python cache files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# data folders
+data/
+outputs/
+results/
+logs/
+checkpoints/
+*.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
