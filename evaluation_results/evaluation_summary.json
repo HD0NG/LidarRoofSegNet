@@ -1,0 +1,893 @@
+[
+  {
+    "scene": "scene_000",
+    "ARI": 0.33524355168876185,
+    "NMI": 0.580004869595913,
+    "mIoU": 0.6115924793518671,
+    "gt_instances": 4,
+    "pred_instances": 12,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_001",
+    "ARI": 0.772995809950707,
+    "NMI": 0.7646682899509843,
+    "mIoU": 0.783970054619058,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_002",
+    "ARI": 0.8991691205606671,
+    "NMI": 0.8257196455596888,
+    "mIoU": 0.9482252186311062,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_003",
+    "ARI": 0.7951162157693772,
+    "NMI": 0.7659730315421285,
+    "mIoU": 0.8393718420628763,
+    "gt_instances": 4,
+    "pred_instances": 6,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_004",
+    "ARI": 0.613735981010466,
+    "NMI": 0.6286389948859373,
+    "mIoU": 0.6692176792846934,
+    "gt_instances": 2,
+    "pred_instances": 6,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_005",
+    "ARI": 0.7997788111200234,
+    "NMI": 0.7311626570135953,
+    "mIoU": 0.8949979649979649,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_006",
+    "ARI": 0.8444789129565168,
+    "NMI": 0.8086128816661075,
+    "mIoU": 0.885930820990434,
+    "gt_instances": 4,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_007",
+    "ARI": 0.7716901041414229,
+    "NMI": 0.7514007704735044,
+    "mIoU": 0.7658872852493921,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_008",
+    "ARI": 0.8901415779155641,
+    "NMI": 0.810290797257988,
+    "mIoU": 0.9434346810828489,
+    "gt_instances": 2,
+    "pred_instances": 5,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_009",
+    "ARI": 0.6299614303334239,
+    "NMI": 0.6586576768600101,
+    "mIoU": 0.7075151053143192,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_010",
+    "ARI": 0.9375547954812182,
+    "NMI": 0.8799861639065445,
+    "mIoU": 0.968568814219516,
+    "gt_instances": 2,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_011",
+    "ARI": 0.3711147682838222,
+    "NMI": 0.5201722352784782,
+    "mIoU": 0.470418126764876,
+    "gt_instances": 2,
+    "pred_instances": 6,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_012",
+    "ARI": 0.8200146771430544,
+    "NMI": 0.7880075885012354,
+    "mIoU": 0.8670089857163176,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_013",
+    "ARI": 0.7688528297203691,
+    "NMI": 0.7435153208725674,
+    "mIoU": 0.743209609717886,
+    "gt_instances": 4,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_014",
+    "ARI": 0.774664420988595,
+    "NMI": 0.7211954087393169,
+    "mIoU": 0.7030473491305521,
+    "gt_instances": 6,
+    "pred_instances": 9,
+    "complexity": "complex"
+  },
+  {
+    "scene": "scene_015",
+    "ARI": 0.6558160583941985,
+    "NMI": 0.7395987762478268,
+    "mIoU": 0.7487372258970882,
+    "gt_instances": 6,
+    "pred_instances": 8,
+    "complexity": "complex"
+  },
+  {
+    "scene": "scene_016",
+    "ARI": 0.9148928869881107,
+    "NMI": 0.8937412519997313,
+    "mIoU": 0.9380483964190046,
+    "gt_instances": 4,
+    "pred_instances": 5,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_017",
+    "ARI": 0.45422192760594104,
+    "NMI": 0.6710546958234564,
+    "mIoU": 0.6741795429769112,
+    "gt_instances": 6,
+    "pred_instances": 13,
+    "complexity": "complex"
+  },
+  {
+    "scene": "scene_018",
+    "ARI": 1.0,
+    "NMI": 1.0,
+    "mIoU": 1.0,
+    "gt_instances": 1,
+    "pred_instances": 1,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_019",
+    "ARI": 0.6546612283441688,
+    "NMI": 0.6536044572969456,
+    "mIoU": 0.6911315157827997,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_020",
+    "ARI": 0.8919094121580345,
+    "NMI": 0.8589016935267182,
+    "mIoU": 0.9189752115103476,
+    "gt_instances": 4,
+    "pred_instances": 5,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_021",
+    "ARI": 0.7955032858308128,
+    "NMI": 0.7713144947537087,
+    "mIoU": 0.8267408086006056,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_022",
+    "ARI": 0.8858338757537018,
+    "NMI": 0.8282820878508459,
+    "mIoU": 0.9447992524328157,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_023",
+    "ARI": 0.7459863640888658,
+    "NMI": 0.7282373022277085,
+    "mIoU": 0.8121396694101407,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_024",
+    "ARI": 0.7361179522511297,
+    "NMI": 0.6170864603019407,
+    "mIoU": 0.6414462002178551,
+    "gt_instances": 2,
+    "pred_instances": 10,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_025",
+    "ARI": 0.8865643725325643,
+    "NMI": 0.8153534050629778,
+    "mIoU": 0.952352390559539,
+    "gt_instances": 2,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_026",
+    "ARI": 0.6640924341962173,
+    "NMI": 0.6880104583176572,
+    "mIoU": 0.7641433370660694,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_027",
+    "ARI": 0.7450102434608281,
+    "NMI": 0.7615786917460262,
+    "mIoU": 0.7721885147237434,
+    "gt_instances": 6,
+    "pred_instances": 11,
+    "complexity": "complex"
+  },
+  {
+    "scene": "scene_028",
+    "ARI": 0.8956362786024042,
+    "NMI": 0.8224464176318514,
+    "mIoU": 0.9446155178760909,
+    "gt_instances": 2,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_029",
+    "ARI": 0.5604617637998272,
+    "NMI": 0.6448732953693145,
+    "mIoU": 0.6984655124999919,
+    "gt_instances": 4,
+    "pred_instances": 11,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_030",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.36676646706586824,
+    "gt_instances": 1,
+    "pred_instances": 7,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_031",
+    "ARI": 0.7916646302755465,
+    "NMI": 0.7836230378599054,
+    "mIoU": 0.8231758682433474,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_032",
+    "ARI": 0.405425442179335,
+    "NMI": 0.6174198306443015,
+    "mIoU": 0.6062343964859848,
+    "gt_instances": 6,
+    "pred_instances": 13,
+    "complexity": "complex"
+  },
+  {
+    "scene": "scene_033",
+    "ARI": 0.8326199034136924,
+    "NMI": 0.7858844307646965,
+    "mIoU": 0.8532859209490367,
+    "gt_instances": 4,
+    "pred_instances": 6,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_034",
+    "ARI": 0.9141846686212495,
+    "NMI": 0.8536668793154238,
+    "mIoU": 0.9603061572158675,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_035",
+    "ARI": 0.8567201874654753,
+    "NMI": 0.7853222379522535,
+    "mIoU": 0.9256372539199667,
+    "gt_instances": 2,
+    "pred_instances": 5,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_036",
+    "ARI": 0.9388940465374697,
+    "NMI": 0.8858092981373861,
+    "mIoU": 0.968648635315302,
+    "gt_instances": 2,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_037",
+    "ARI": 0.796815545712078,
+    "NMI": 0.7697878964013946,
+    "mIoU": 0.8680060288242009,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_038",
+    "ARI": 0.7914415493880894,
+    "NMI": 0.7694062362646291,
+    "mIoU": 0.8578920560839446,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_039",
+    "ARI": 0.8398654621381318,
+    "NMI": 0.8065027531833033,
+    "mIoU": 0.8567697438364714,
+    "gt_instances": 4,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_040",
+    "ARI": 0.5984091141352847,
+    "NMI": 0.6701067651103906,
+    "mIoU": 0.7176839885173907,
+    "gt_instances": 4,
+    "pred_instances": 13,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_041",
+    "ARI": 0.8150106621372678,
+    "NMI": 0.7854493285460061,
+    "mIoU": 0.8728039762560794,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_042",
+    "ARI": 0.8937887417399195,
+    "NMI": 0.8211919898237476,
+    "mIoU": 0.9455479939633816,
+    "gt_instances": 2,
+    "pred_instances": 5,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_043",
+    "ARI": 0.7894255892964952,
+    "NMI": 0.7665878142126062,
+    "mIoU": 0.8440606005566985,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_044",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.3899430740037951,
+    "gt_instances": 1,
+    "pred_instances": 9,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_045",
+    "ARI": 0.737732179567372,
+    "NMI": 0.6851695377502091,
+    "mIoU": 0.7199339369912053,
+    "gt_instances": 4,
+    "pred_instances": 6,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_046",
+    "ARI": 0.8097509130670466,
+    "NMI": 0.7663528472264864,
+    "mIoU": 0.8249201771383371,
+    "gt_instances": 4,
+    "pred_instances": 10,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_047",
+    "ARI": 0.9329305083489432,
+    "NMI": 0.8657429137879137,
+    "mIoU": 0.9657803619513131,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_048",
+    "ARI": 0.6354808345647215,
+    "NMI": 0.6102430692347722,
+    "mIoU": 0.7425334956210834,
+    "gt_instances": 2,
+    "pred_instances": 9,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_049",
+    "ARI": 0.8688131946592031,
+    "NMI": 0.7884853213120371,
+    "mIoU": 0.9329016221873365,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_050",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.9830508474576272,
+    "gt_instances": 1,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_051",
+    "ARI": 0.8203510851418729,
+    "NMI": 0.7890989081330245,
+    "mIoU": 0.8828488672588872,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_052",
+    "ARI": 0.9123043402658085,
+    "NMI": 0.8502937602821515,
+    "mIoU": 0.9543307945953277,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_053",
+    "ARI": 0.8488411954734099,
+    "NMI": 0.8049296856014045,
+    "mIoU": 0.8722864293439578,
+    "gt_instances": 4,
+    "pred_instances": 6,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_054",
+    "ARI": 0.9364791397616778,
+    "NMI": 0.8653313037642458,
+    "mIoU": 0.9613768037322339,
+    "gt_instances": 2,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_055",
+    "ARI": 1.0,
+    "NMI": 1.0,
+    "mIoU": 1.0,
+    "gt_instances": 1,
+    "pred_instances": 1,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_056",
+    "ARI": 0.9509119553261591,
+    "NMI": 0.9014845839290171,
+    "mIoU": 0.9761007657833054,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_057",
+    "ARI": 0.6869909364982316,
+    "NMI": 0.7157744570257528,
+    "mIoU": 0.7551463023100664,
+    "gt_instances": 4,
+    "pred_instances": 10,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_058",
+    "ARI": 0.7910453384802509,
+    "NMI": 0.799846055641098,
+    "mIoU": 0.8046978092251087,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_059",
+    "ARI": 0.8966092058337765,
+    "NMI": 0.8286975544197358,
+    "mIoU": 0.9459681356233081,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_060",
+    "ARI": -0.0003064179738852811,
+    "NMI": 0.007429098302904476,
+    "mIoU": 0.25296442687747034,
+    "gt_instances": 2,
+    "pred_instances": 2,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_061",
+    "ARI": 0.7569117340057965,
+    "NMI": 0.7481051483425664,
+    "mIoU": 0.7837999190762694,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_062",
+    "ARI": 0.8767186534981938,
+    "NMI": 0.8343633681296115,
+    "mIoU": 0.8915929244835561,
+    "gt_instances": 4,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_063",
+    "ARI": 0.7991606715477472,
+    "NMI": 0.7854272150441659,
+    "mIoU": 0.8589264240649895,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_064",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.7476979742173112,
+    "gt_instances": 2,
+    "pred_instances": 1,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_065",
+    "ARI": 0.8393671859084282,
+    "NMI": 0.7749818581010116,
+    "mIoU": 0.9295622844390343,
+    "gt_instances": 2,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_066",
+    "ARI": 0.8745821285353238,
+    "NMI": 0.8426939719577465,
+    "mIoU": 0.8779559543813782,
+    "gt_instances": 4,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_067",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.4166666666666667,
+    "gt_instances": 3,
+    "pred_instances": 1,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_068",
+    "ARI": 0.7558925539923533,
+    "NMI": 0.7081049178312228,
+    "mIoU": 0.8345782608502944,
+    "gt_instances": 3,
+    "pred_instances": 5,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_069",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.623046875,
+    "gt_instances": 1,
+    "pred_instances": 6,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_070",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.9781879194630873,
+    "gt_instances": 1,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_071",
+    "ARI": 0.579667975283117,
+    "NMI": 0.7136046254788766,
+    "mIoU": 0.6248425951883524,
+    "gt_instances": 7,
+    "pred_instances": 11,
+    "complexity": "complex"
+  },
+  {
+    "scene": "scene_072",
+    "ARI": 0.7975320720609346,
+    "NMI": 0.6964508572187181,
+    "mIoU": 0.881769254397094,
+    "gt_instances": 2,
+    "pred_instances": 5,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_073",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.30908203125,
+    "gt_instances": 1,
+    "pred_instances": 17,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_074",
+    "ARI": 0.5409517729993549,
+    "NMI": 0.555201871875256,
+    "mIoU": 0.6395863808999772,
+    "gt_instances": 2,
+    "pred_instances": 5,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_075",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.7149425287356321,
+    "gt_instances": 1,
+    "pred_instances": 6,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_076",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.4125714285714286,
+    "gt_instances": 1,
+    "pred_instances": 22,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_077",
+    "ARI": 0.7804854362798116,
+    "NMI": 0.7962950251273999,
+    "mIoU": 0.8288494489601034,
+    "gt_instances": 6,
+    "pred_instances": 11,
+    "complexity": "complex"
+  },
+  {
+    "scene": "scene_078",
+    "ARI": 0.8891877868816371,
+    "NMI": 0.8526563946607332,
+    "mIoU": 0.9192610238293132,
+    "gt_instances": 4,
+    "pred_instances": 6,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_079",
+    "ARI": 0.7153635274956396,
+    "NMI": 0.7411265197360948,
+    "mIoU": 0.7570359877519934,
+    "gt_instances": 4,
+    "pred_instances": 8,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_080",
+    "ARI": 0.5528261041877508,
+    "NMI": 0.5543120733898369,
+    "mIoU": 0.7424915954543267,
+    "gt_instances": 2,
+    "pred_instances": 8,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_081",
+    "ARI": 0.36434097264797266,
+    "NMI": 0.49265104514427194,
+    "mIoU": 0.6719664016799161,
+    "gt_instances": 2,
+    "pred_instances": 10,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_082",
+    "ARI": 0.8169245239088724,
+    "NMI": 0.7951955559769115,
+    "mIoU": 0.8345426909159446,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_083",
+    "ARI": 0.7875913932469503,
+    "NMI": 0.7720942432432514,
+    "mIoU": 0.8352241184051541,
+    "gt_instances": 4,
+    "pred_instances": 9,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_084",
+    "ARI": 0.8578338138681273,
+    "NMI": 0.8362024975908516,
+    "mIoU": 0.8520586396961383,
+    "gt_instances": 4,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_085",
+    "ARI": 0.8863939616800595,
+    "NMI": 0.8103308222021772,
+    "mIoU": 0.9394004173465544,
+    "gt_instances": 2,
+    "pred_instances": 5,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_086",
+    "ARI": 0.9104951165154188,
+    "NMI": 0.8745422016367698,
+    "mIoU": 0.9374666555229156,
+    "gt_instances": 3,
+    "pred_instances": 4,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_087",
+    "ARI": 0.6004533292814084,
+    "NMI": 0.6321594287322629,
+    "mIoU": 0.6917388167388168,
+    "gt_instances": 2,
+    "pred_instances": 5,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_088",
+    "ARI": 0.8430576580954156,
+    "NMI": 0.7512914333713675,
+    "mIoU": 0.9292377069434149,
+    "gt_instances": 2,
+    "pred_instances": 3,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_089",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.9930875576036866,
+    "gt_instances": 1,
+    "pred_instances": 2,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_090",
+    "ARI": 0.32698008873620654,
+    "NMI": 0.47193619834188605,
+    "mIoU": 0.4539727489124189,
+    "gt_instances": 2,
+    "pred_instances": 7,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_091",
+    "ARI": 0.8197589813685277,
+    "NMI": 0.7887120924169015,
+    "mIoU": 0.8687304485530996,
+    "gt_instances": 4,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_092",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.9976019184652278,
+    "gt_instances": 1,
+    "pred_instances": 2,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_093",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.9977064220183486,
+    "gt_instances": 1,
+    "pred_instances": 2,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_094",
+    "ARI": 0.8867711596272333,
+    "NMI": 0.8039931912164628,
+    "mIoU": 0.941841094190863,
+    "gt_instances": 2,
+    "pred_instances": 4,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_095",
+    "ARI": 0.519632002476144,
+    "NMI": 0.6717514865588499,
+    "mIoU": 0.7278258577890581,
+    "gt_instances": 4,
+    "pred_instances": 10,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_096",
+    "ARI": 0.0,
+    "NMI": 0.0,
+    "mIoU": 0.40576171875,
+    "gt_instances": 1,
+    "pred_instances": 24,
+    "complexity": "simple"
+  },
+  {
+    "scene": "scene_097",
+    "ARI": 0.7867207505671855,
+    "NMI": 0.7437680963804467,
+    "mIoU": 0.7406380881491186,
+    "gt_instances": 5,
+    "pred_instances": 7,
+    "complexity": "moderate"
+  },
+  {
+    "scene": "scene_098",
+    "ARI": 0.6575521066052492,
+    "NMI": 0.6107399576676747,
+    "mIoU": 0.6786282575252381,
+    "gt_instances": 2,
+    "pred_instances": 6,
+    "complexity": "simple"
+  }
+]
