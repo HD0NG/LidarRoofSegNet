@@ -77,6 +77,9 @@ class Config:
     # Samopling Params
     sampling_method = 'fps'  # 'random' or 'fps' (farthest point sampling)
 
+    # clustering methods
+    clustering_method = 'hdbscan'  # 'mean_shift', 'dbscan', 'hdbscan'
+
 
 
 # ==========================================
