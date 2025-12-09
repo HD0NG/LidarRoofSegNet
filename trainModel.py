@@ -59,7 +59,7 @@ class Config:
     output_dim = 64
     
     # Training Params
-    batch_size = 8
+    batch_size = 16
     lr = 1e-3
     epochs = 50
     # First use GPU if available, else if MPS is available (Mac), else CPU
@@ -620,14 +620,12 @@ def train_pipeline(conf: Config = None, data_root="data/roofNTNU/train_test_spli
         train_dataset, 
         batch_size=conf.batch_size, 
         shuffle=True,
-        num_workers=4,
         pin_memory=True
     )
     val_loader = DataLoader(
         val_dataset, 
         batch_size=conf.batch_size, 
         shuffle=False,
-        num_workers=4,
         pin_memory=True
     )
     
