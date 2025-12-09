@@ -51,7 +51,7 @@ class Config:
     """Global configuration for training and model parameters."""
     # Data Params
     input_dim = 6  # XYZ (3) + Normals (3). Set to 3 if O3D is missing.
-    max_points = 2048
+    max_points = 4096
     
     # Model Params
     k_neighbors = 20
@@ -59,7 +59,7 @@ class Config:
     output_dim = 64
     
     # Training Params
-    batch_size = 4
+    batch_size = 8
     lr = 1e-3
     epochs = 50
     # First use GPU if available, else if MPS is available (Mac), else CPU
@@ -488,7 +488,8 @@ class DiscriminativeLoss(nn.Module):
             if num_instances > 1:
                 # Optimized: Use cdist instead of nested loops for performance
                 # Using p=1 (Manhattan) to match provided snippet integration request
-                dist_mat = torch.cdist(mu_tensor, mu_tensor, p=1)
+                # CHANGED to p=2 (Euclidean) to match Variance Term and HDBSCAN
+                dist_mat = torch.cdist(mu_tensor, mu_tensor, p=2)
                 
                 # Create mask to ignore diagonal (dist to self is 0)
                 diag_mask = torch.eye(num_instances, device=embeddings.device).bool()
@@ -503,7 +504,8 @@ class DiscriminativeLoss(nn.Module):
             
             # --- 3. Regularization Term ---
             # Using p=1 (L1 norm) for regularization as per snippet
-            l_reg = torch.norm(mu_tensor, p=1, dim=1).mean()
+            # CHANGED to p=2 (L2 norm) to be consistent
+            l_reg = torch.norm(mu_tensor, p=2, dim=1).mean()
 
             # Combine
             total_loss += self.alpha * l_var + self.beta * l_dist + self.gamma * l_reg
@@ -545,7 +547,7 @@ def cluster_embeddings(embeddings, method='meanshift'):
             # Robust to variable densities, no 'epsilon' parameter needed
             # min_cluster_size: Smallest valid roof face size
             # min_samples: Measure of 'conservativeness' (larger = more points marked as noise)
-            clusterer = HDBSCAN(min_cluster_size=15, min_samples=5, cluster_selection_method='eom')
+            clusterer = HDBSCAN(min_cluster_size=10, min_samples=5, cluster_selection_method='eom', cluster_selection_epsilon=0.05)
             labels = clusterer.fit_predict(embeddings)
         else:
             print("HDBSCAN requested but not installed. Falling back to DBSCAN.")
@@ -614,8 +616,20 @@ def train_pipeline(conf: Config = None, data_root="data/roofNTNU/train_test_spli
         # return # Commented out for dry-run/template purposes
 
     # Dataloaders
-    train_loader = DataLoader(train_dataset, batch_size=conf.batch_size, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=conf.batch_size, shuffle=False)
+    train_loader = DataLoader(
+        train_dataset, 
+        batch_size=conf.batch_size, 
+        shuffle=True,
+        num_workers=4,
+        pin_memory=True
+    )
+    val_loader = DataLoader(
+        val_dataset, 
+        batch_size=conf.batch_size, 
+        shuffle=False,
+        num_workers=4,
+        pin_memory=True
+    )
     
     # 3. Training Loop
     best_val_loss = float('inf')
