@@ -716,8 +716,8 @@ if __name__ == "__main__":
         os.makedirs("logs")
     if not os.path.exists("models"):
         os.makedirs("models")
-    log_path = os.path.join("logs", "training_log.json")
-    model_path = os.path.join("models", "roof_segmentation_dgcnn_best.pth")
+    log_path = os.path.join("logs", "training_log_20251209.json")
+    model_path = os.path.join("models", "roof_segmentation_dgcnn_20251209.pth")
     train_pipeline(conf, data_root="data/roofNTNU/train_test_split", json_log_path=log_path, save_model_path=model_path)
 # ==========================================
 # End of Script
