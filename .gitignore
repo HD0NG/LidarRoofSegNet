@@ -18,6 +18,7 @@ checkpoints/
 *.csv
 plots/
 evaluation_results/
+models/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
