@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: '<Model_training_LiDARML_20251209>',
+      name: '<Model_training_LiDARML_20251209_da-rs>',
       script: 'trainModel.py',
       interpreter: '/home/ubuntu/miniconda3/envs/LiDARML/bin/python', // Path to python interpreter
       autorestart: false, // Disable automatic restart on crashes or errors

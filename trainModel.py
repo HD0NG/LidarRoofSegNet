@@ -38,6 +38,14 @@ except ImportError:
     O3D_AVAILABLE = False
     print("WARNING: Open3D not found. Normal estimation will be skipped.")
 
+# Try importing DataAugmentation (local file)
+try:
+    from data_augmentation import DataAugmentation
+    AUGMENTATION_AVAILABLE = True
+except ImportError:
+    AUGMENTATION_AVAILABLE = False
+    print("WARNING: data_augmentation.py not found. Training will proceed without augmentation.")
+
 
 print(f'CUDA available: {torch.cuda.is_available()}')
 print(f'Device count: {torch.cuda.device_count()}')
@@ -277,24 +285,45 @@ class LiDARPointCloudDataset(Dataset):
         point_cloud = self.load_point_cloud(point_path)
         labels = self.load_labels(label_path, num_points=point_cloud.shape[0])
 
-        # Apply padding or subsampling
+        # 1. Subsample/Pad
         point_cloud, labels = self.pad_or_subsample(point_cloud, labels)
         
-        # --- METHODOLOGICAL INTEGRATION (Normals + Normalization) ---
-        # 1. Compute Normals if configured (Enhancement #1)
+        # 2. DATA AUGMENTATION (Training Only)
+        # We apply this BEFORE Normal Calculation so normals are consistent with rotated geometry
+        if self.mode == 'train' and AUGMENTATION_AVAILABLE:
+            point_cloud = DataAugmentation.apply_rs(point_cloud)
+        
+        # 3. Compute Normals (on augmented geometry)
         if Config.input_dim == 6:
-            # Note: compute_normals expects (N, 3) and returns (N, 6)
             point_cloud = compute_normals(point_cloud)
 
-        # 2. Normalize XYZ (Essential for stability)
+        # 4. Normalize
         point_cloud = normalize_pc(point_cloud)
-        # ------------------------------------------------------------
 
-        # Relabel + get instance count (done last to handle padded -1s correctly)
+        # 5. Relabel
         if self.mode == "train":
             labels, instance_count = self.relabel_instances(labels)
         else:
             instance_count = len(np.unique(labels[labels != -1]))
+
+        # # Apply padding or subsampling
+        # point_cloud, labels = self.pad_or_subsample(point_cloud, labels)
+        
+        # # --- METHODOLOGICAL INTEGRATION (Normals + Normalization) ---
+        # # 1. Compute Normals if configured (Enhancement #1)
+        # if Config.input_dim == 6:
+        #     # Note: compute_normals expects (N, 3) and returns (N, 6)
+        #     point_cloud = compute_normals(point_cloud)
+
+        # # 2. Normalize XYZ (Essential for stability)
+        # point_cloud = normalize_pc(point_cloud)
+        # # ------------------------------------------------------------
+
+        # # Relabel + get instance count (done last to handle padded -1s correctly)
+        # if self.mode == "train":
+        #     labels, instance_count = self.relabel_instances(labels)
+        # else:
+        #     instance_count = len(np.unique(labels[labels != -1]))
 
         return torch.tensor(point_cloud, dtype=torch.float32), torch.tensor(labels, dtype=torch.long), instance_count
 
@@ -547,7 +576,7 @@ def cluster_embeddings(embeddings, method='meanshift'):
             # Robust to variable densities, no 'epsilon' parameter needed
             # min_cluster_size: Smallest valid roof face size
             # min_samples: Measure of 'conservativeness' (larger = more points marked as noise)
-            clusterer = HDBSCAN(min_cluster_size=10, min_samples=5, cluster_selection_method='eom', cluster_selection_epsilon=0.05)
+            clusterer = HDBSCAN(min_cluster_size=10, min_samples=5, cluster_selection_method='eom', cluster_selection_epsilon=0.1)
             labels = clusterer.fit_predict(embeddings)
         else:
             print("HDBSCAN requested but not installed. Falling back to DBSCAN.")
@@ -714,8 +743,8 @@ if __name__ == "__main__":
         os.makedirs("logs")
     if not os.path.exists("models"):
         os.makedirs("models")
-    log_path = os.path.join("logs", "training_log_20251209.json")
-    model_path = os.path.join("models", "roof_segmentation_dgcnn_20251209.pth")
+    log_path = os.path.join("logs", "training_log_20251209_da_rs.json")
+    model_path = os.path.join("models", "roof_segmentation_dgcnn_20251209_da_rs.pth")
     train_pipeline(conf, data_root="data/roofNTNU/train_test_split", json_log_path=log_path, save_model_path=model_path)
 # ==========================================
 # End of Script
