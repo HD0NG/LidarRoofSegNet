@@ -576,7 +576,7 @@ def cluster_embeddings(embeddings, method='meanshift'):
             # Robust to variable densities, no 'epsilon' parameter needed
             # min_cluster_size: Smallest valid roof face size
             # min_samples: Measure of 'conservativeness' (larger = more points marked as noise)
-            clusterer = HDBSCAN(min_cluster_size=10, min_samples=5, cluster_selection_method='eom', cluster_selection_epsilon=0.1)
+            clusterer = HDBSCAN(min_cluster_size=10, min_samples=5, cluster_selection_method='eom', cluster_selection_epsilon=0.0)
             labels = clusterer.fit_predict(embeddings)
         else:
             print("HDBSCAN requested but not installed. Falling back to DBSCAN.")
