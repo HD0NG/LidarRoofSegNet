@@ -20,6 +20,11 @@ plots/
 evaluation_results/
 models/
 
+# AI-generated files
+.claude/
+*.html
+*.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
