@@ -13,12 +13,12 @@ __pycache__/
 data/
 outputs/
 results/
-logs/
+# logs/
 checkpoints/
 *.csv
 plots/
 evaluation_results/
-models/
+# models/
 
 # AI-generated files
 .claude/
