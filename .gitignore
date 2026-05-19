@@ -17,7 +17,7 @@ results/
 checkpoints/
 *.csv
 plots/
-evaluation_results/
+evaluation_results/*.html
 # models/
 
 # AI-generated files
