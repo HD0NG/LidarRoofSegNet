@@ -17,6 +17,12 @@ from roofseg.refinement.cluster_graph import (
     fit_plane,
 )
 from roofseg.refinement.features import PairFeatures, pairwise_features
+from roofseg.refinement.folds import (
+    FoldManifest,
+    load_folds,
+    make_folds,
+    save_folds,
+)
 from roofseg.refinement.greedy_merge import greedy_merge
 from roofseg.refinement.pipeline import refine
 from roofseg.refinement.scoring import (
@@ -24,17 +30,35 @@ from roofseg.refinement.scoring import (
     LightGBMScorer,
     MergeScorer,
 )
+from roofseg.refinement.training_data import (
+    PairRecord,
+    dominant_label,
+    harvest_pairs,
+    load_pairs_jsonl,
+    load_pairs_many,
+    write_pairs_jsonl,
+)
 
 __all__ = [
     "ClusterGraph",
     "ClusterNode",
+    "FoldManifest",
     "HandTunedScorer",
     "LightGBMScorer",
     "MergeScorer",
     "PairFeatures",
+    "PairRecord",
     "build_cluster_graph",
+    "dominant_label",
     "fit_plane",
     "greedy_merge",
+    "harvest_pairs",
+    "load_folds",
+    "load_pairs_jsonl",
+    "load_pairs_many",
+    "make_folds",
     "pairwise_features",
     "refine",
+    "save_folds",
+    "write_pairs_jsonl",
 ]
