@@ -21,7 +21,7 @@ evaluation_results/*.html
 # models/
 
 # AI-generated files
-# .claude/
+.claude/
 *.html
 *.md
 
