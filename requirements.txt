@@ -1,0 +1,16 @@
+# Runtime dependencies for LidarRoofSegNet (roofseg package).
+# Pins are inclusive lower bounds; pyproject.toml is the source of truth for ranges.
+# For exact reproduction of the May 2026 experiments, see requirements-lock.txt (TODO).
+numpy>=1.24,<3
+scipy>=1.10
+scikit-learn>=1.3
+networkx>=3.0
+pandas>=2.0
+tqdm>=4.65
+torch>=2.0
+torch-geometric>=2.4
+open3d>=0.17
+
+# Optional: learned merge classifier (ADR-0002).
+# Install with `pip install -e ".[classifier]"` or uncomment.
+# lightgbm>=4.0

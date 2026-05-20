@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "roofseg"
+version = "0.1.0"
+description = "Learned plane-aware refinement for roof-face instance segmentation from airborne LiDAR."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "LidarRoofSegNet authors" }]
+keywords = ["lidar", "point-cloud", "instance-segmentation", "roof", "dgcnn"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+
+dependencies = [
+    "numpy>=1.24,<3",
+    "scipy>=1.10",
+    "scikit-learn>=1.3",
+    "networkx>=3.0",
+    "pandas>=2.0",
+    "tqdm>=4.65",
+    "torch>=2.0",
+    "torch-geometric>=2.4",
+    "open3d>=0.17",
+]
+
+[project.optional-dependencies]
+classifier = ["lightgbm>=4.0"]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.5",
+]
+
+[project.scripts]
+roofseg-evaluate = "roofseg.cli.evaluate:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["roofseg*"]
+exclude = ["tests*", "data*", "logs*", "outputs*", "plots*", "evaluation_results*", "models*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
