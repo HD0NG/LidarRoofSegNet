@@ -1,0 +1,13 @@
+{
+  "fold": 0,
+  "n_train_scenes": 630,
+  "n_heldout_scenes": 158,
+  "n_pairs_total": 664,
+  "n_pairs_should_merge": 206,
+  "positive_rate": 0.3102409638554217,
+  "clusterer": "hdbscan",
+  "adjacency_radius": 0.05,
+  "min_purity": 0.6,
+  "checkpoint": "artifacts/merge_classifier_smoke/fold_0/model.pth",
+  "pairs_file": "artifacts/merge_classifier_smoke/fold_0/pairs.jsonl"
+}
