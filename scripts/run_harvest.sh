@@ -6,3 +6,4 @@ for k in 0 1 2 3 4; do
     scripts/harvest_fold.py --fold $k \
     --epochs 50 --output-dir artifacts/merge_classifier
 done
+exit 0
