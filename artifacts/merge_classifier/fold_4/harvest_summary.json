@@ -1,0 +1,13 @@
+{
+  "fold": 4,
+  "n_train_scenes": 631,
+  "n_heldout_scenes": 157,
+  "n_pairs_total": 639,
+  "n_pairs_should_merge": 143,
+  "positive_rate": 0.2237871674491393,
+  "clusterer": "hdbscan",
+  "adjacency_radius": 0.05,
+  "min_purity": 0.6,
+  "checkpoint": "artifacts/merge_classifier/fold_4/model.pth",
+  "pairs_file": "artifacts/merge_classifier/fold_4/pairs.jsonl"
+}
