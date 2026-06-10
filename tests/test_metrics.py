@@ -47,14 +47,28 @@ def test_number_of_faces_error_exact():
 
 
 def test_over_segmentation_rate_detects_split():
-    # GT face 0 is split into two predicted clusters (pred 0 and pred 1),
-    # each covering half its points → both above IoU 0.4 against gt face 0.
+    # GT face 0 is split 50/50 into pred 0 and pred 1.
     gt = np.array([0, 0, 0, 0, 1, 1, 1, 1])
     pred = np.array([0, 0, 1, 1, 2, 2, 2, 2])
-    iou, *_ = iou_matrix(gt, pred)
-    over, under = over_under_segmentation_rates(iou, iou_match_threshold=0.4)
-    # gt face 0 matched by pred 0 AND pred 1 above threshold (both IoU = 2/4 = 0.5)
+    iou, _, _, gt_sizes, pred_sizes = iou_matrix(gt, pred)
+    over, under = over_under_segmentation_rates(iou, gt_sizes, pred_sizes)
+    # gt 0 covered 50% by pred 0 and 50% by pred 1 → both ≥ 0.2 coverage → over-seg.
     assert over > 0.0
+    assert under == 0.0
+
+
+def test_over_segmentation_rate_catches_asymmetric_split():
+    # Realistic over-seg: GT 0 split into a 70% fragment (pred 0) and a 30%
+    # fragment (pred 1). Under the old IoU-only definition with threshold 0.5,
+    # neither fragment cleared the bar (IoUs were 0.7 and 0.3), so the metric
+    # incorrectly returned 0.
+    gt = np.array([0] * 10 + [1] * 5)
+    pred = np.array([0] * 7 + [1] * 3 + [2] * 5)
+    iou, _, _, gt_sizes, pred_sizes = iou_matrix(gt, pred)
+    over, under = over_under_segmentation_rates(iou, gt_sizes, pred_sizes)
+    # gt 0: pred 0 covers 70%, pred 1 covers 30% → both ≥ 0.2 → over-seg fires.
+    # gt 1: only pred 2 covers it → not over-seg.
+    assert over == 0.5
     assert under == 0.0
 
 
@@ -62,9 +76,9 @@ def test_under_segmentation_rate_detects_merge():
     # Two GT faces collapsed into one predicted cluster.
     gt = np.array([0, 0, 1, 1])
     pred = np.array([0, 0, 0, 0])
-    iou, *_ = iou_matrix(gt, pred)
-    over, under = over_under_segmentation_rates(iou, iou_match_threshold=0.4)
-    # pred 0 matches both gt 0 (IoU 0.5) and gt 1 (IoU 0.5) ≥ 0.4
+    iou, _, _, gt_sizes, pred_sizes = iou_matrix(gt, pred)
+    over, under = over_under_segmentation_rates(iou, gt_sizes, pred_sizes)
+    # pred 0 is made up of 50% gt 0 + 50% gt 1 → both ≥ 0.2 coverage → under-seg.
     assert under > 0.0
 
 

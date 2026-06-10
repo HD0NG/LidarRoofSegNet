@@ -116,32 +116,40 @@ def number_of_faces_error(gt_labels: np.ndarray, pred_labels: np.ndarray) -> int
 
 
 def over_under_segmentation_rates(
-    iou: np.ndarray, iou_match_threshold: float = 0.5
+    iou: np.ndarray,
+    gt_sizes: np.ndarray,
+    pred_sizes: np.ndarray,
+    *,
+    coverage_threshold: float = 0.2,
 ) -> tuple[float, float]:
-    """Over-/under-segmentation rates derived from the IoU matrix.
+    """Coverage-based over-/under-segmentation rates.
 
-    A GT face is **over-segmented** when at least two predicted clusters overlap
-    it with IoU above ``iou_match_threshold`` (or with at least one non-trivial
-    overlap when the dominant match is < threshold). To match the standard
-    point-cloud literature, we use a simpler and more interpretable definition:
+    - ``over_segmentation_rate``: fraction of GT faces split across ≥2
+      predicted clusters that each cover at least ``coverage_threshold`` of
+      the GT face's points (the face was fragmented into multiple non-trivial
+      pieces).
+    - ``under_segmentation_rate``: fraction of predicted clusters that swallow
+      ≥2 GT faces, where each swallowed GT contributes at least
+      ``coverage_threshold`` of the prediction's points.
 
-    - ``over_segmentation_rate``: fraction of GT faces that contain points
-      belonging to two or more predicted clusters covering ≥ ``iou_match_threshold``
-      of the GT face's points (i.e. the GT face was split across multiple preds).
-    - ``under_segmentation_rate``: fraction of predicted clusters that cover
-      ≥ ``iou_match_threshold`` of two or more GT faces (i.e. one pred swallowed
-      multiple GT faces).
+    Earlier versions thresholded IoU directly, which missed realistic
+    asymmetric over-segs (a 70%/30% split has neither fragment clearing
+    IoU 0.5). Raw intersections are recovered from IoU and sizes via
+    ``I = IoU · (G + P) / (1 + IoU)``.
     """
     if iou.size == 0 or min(iou.shape) == 0:
         return 0.0, 0.0
 
-    # Per-GT recall against each pred (column-normalised: intersection/gt_size)
-    # We don't have raw intersections here, so use IoU as a proxy: a pred matches
-    # a GT face if IoU >= threshold.
-    matches = iou >= iou_match_threshold
-    over = (matches.sum(axis=1) >= 2).mean()  # GT faces matched by >=2 preds
-    under = (matches.sum(axis=0) >= 2).mean()  # preds matched by >=2 GTs
-    return float(over), float(under)
+    G = gt_sizes[:, None].astype(np.float64)
+    P = pred_sizes[None, :].astype(np.float64)
+    intersection = iou * (G + P) / (1.0 + iou)
+
+    gt_coverage = intersection / G
+    pred_coverage = intersection / P
+
+    over = (gt_coverage >= coverage_threshold).sum(axis=1) >= 2
+    under = (pred_coverage >= coverage_threshold).sum(axis=0) >= 2
+    return float(over.mean()), float(under.mean())
 
 
 # --------------------------------------------------------------------------
@@ -213,7 +221,7 @@ def scene_metrics(
     miou = instance_mean_iou(iou)
     n_pred = len(_unique_non_padding(pred_labels))
     nfe = number_of_faces_error(gt_labels, pred_labels)
-    over, under = over_under_segmentation_rates(iou, iou_match_threshold=iou_threshold)
+    over, under = over_under_segmentation_rates(iou, gt_sizes, pred_sizes)
 
     return SceneMetrics(
         scene=scene_id,
