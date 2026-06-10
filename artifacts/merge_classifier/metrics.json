@@ -1,0 +1,61 @@
+{
+  "model_path": "artifacts/merge_classifier/model.txt",
+  "n_pairs_total": 3392,
+  "n_pairs_train": 2699,
+  "n_pairs_val": 693,
+  "n_scenes_train": 539,
+  "n_scenes_val": 135,
+  "train_metrics": {
+    "accuracy": 0.9273805113004817,
+    "f1": 0.8581765557163531,
+    "precision": 0.7691309987029832,
+    "recall": 0.9705400981996727,
+    "positive_rate_true": 0.22638014079288626,
+    "positive_rate_pred": 0.2856613560577992,
+    "n": 2699,
+    "roc_auc": 0.9788076672247619,
+    "pr_auc": 0.9051204768466674
+  },
+  "val_metrics": {
+    "accuracy": 0.9148629148629148,
+    "f1": 0.8338028169014085,
+    "precision": 0.7708333333333334,
+    "recall": 0.9079754601226994,
+    "positive_rate_true": 0.2352092352092352,
+    "positive_rate_pred": 0.27705627705627706,
+    "n": 693,
+    "roc_auc": 0.9661245514527144,
+    "pr_auc": 0.8452470376531656
+  },
+  "feature_importance": {
+    "f_normal_angle": 1414.1466002464294,
+    "f_residual_a": 1114.2142207622528,
+    "f_residual_b": 444.5007302761078,
+    "f_joint_residual": 21852.284414291382,
+    "f_boundary_distance": 668.4883623123169,
+    "f_size_a": 821.9001786708832,
+    "f_size_b": 759.5687594413757,
+    "f_size_ratio": 960.665354013443,
+    "f_slope_diff": 2153.249724626541,
+    "f_aspect_diff": 2561.947279691696,
+    "f_offset_diff": 420.8606712818146
+  },
+  "lgb_params": {
+    "objective": "binary",
+    "metric": [
+      "binary_logloss",
+      "auc",
+      "average_precision"
+    ],
+    "learning_rate": 0.05,
+    "num_leaves": 31,
+    "max_depth": -1,
+    "min_data_in_leaf": 20,
+    "feature_fraction": 0.9,
+    "bagging_fraction": 0.9,
+    "bagging_freq": 5,
+    "is_unbalance": true,
+    "verbose": -1,
+    "seed": 42
+  }
+}

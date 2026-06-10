@@ -56,6 +56,11 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--merge-threshold", type=float, default=0.5)
     p.add_argument("--adjacency-radius", type=float, default=0.05)
     p.add_argument(
+        "--scorer-model",
+        default=None,
+        help="path to a trained LightGBM merge classifier (.txt); defaults to HandTunedScorer",
+    )
+    p.add_argument(
         "--device",
         default=None,
         choices=["cuda", "mps", "cpu"],
@@ -126,6 +131,13 @@ def main(argv: list[str] | None = None) -> int:
         adjacency_radius=args.adjacency_radius,
     )
 
+    scorer = None
+    if args.scorer_model:
+        from roofseg.refinement.scoring import LightGBMScorer
+
+        scorer = LightGBMScorer(args.scorer_model)
+    scorer_name = scorer.name if scorer is not None else "hand_tuned"
+
     output_path = Path(args.output_json)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -133,6 +145,7 @@ def main(argv: list[str] | None = None) -> int:
     n_scenes = len(dataset) if args.limit is None else min(args.limit, len(dataset))
     print(f"Evaluating {n_scenes} scenes from split={args.split} | clusterer={args.clusterer} "
           f"| refinement={'on' if pipeline_config.apply_refinement else 'off'} "
+          f"| scorer={scorer_name} "
           f"| noise_recovery={'on' if pipeline_config.recover_noise else 'off'}")
 
     with torch.no_grad():
@@ -147,7 +160,7 @@ def main(argv: list[str] | None = None) -> int:
             embeddings = model(points_t)[0].cpu().numpy()
             points_xyz = points_t[0, :, :3].cpu().numpy()
 
-            result = run_inference(points_xyz, embeddings, pipeline_config)
+            result = run_inference(points_xyz, embeddings, pipeline_config, scorer=scorer)
             pred_labels = result.final_labels
 
             valid = gt_labels != -1
