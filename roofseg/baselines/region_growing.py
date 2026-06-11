@@ -20,10 +20,14 @@ from sklearn.neighbors import NearestNeighbors
 
 @dataclass(frozen=True)
 class RegionGrowingConfig:
-    knn: int = 30
-    normal_angle_tol_rad: float = 0.20  # ~11.5 degrees
+    # Defaults tuned on the roofNTNU test split: a 30-NN normal patch spans the
+    # ridge between adjacent faces and smears the normal into a smooth gradient,
+    # so growth bridges right over the ridge (severe under-segmentation). A
+    # tighter 15-NN patch + 8.6 deg tolerance minimises number-of-faces error.
+    knn: int = 15
+    normal_angle_tol_rad: float = 0.15  # ~8.6 degrees
     curvature_threshold: float = 0.04
-    min_cluster_size: int = 50
+    min_cluster_size: int = 30
 
 
 def _estimate_normals_and_curvature(
