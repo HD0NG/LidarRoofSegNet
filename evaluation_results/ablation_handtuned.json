@@ -131,7 +131,7 @@
     "gt_instances": 4,
     "pred_instances": 5,
     "number_of_faces_error": 1,
-    "over_segmentation_rate": 0.0,
+    "over_segmentation_rate": 0.25,
     "under_segmentation_rate": 0.0,
     "complexity": "moderate"
   },
@@ -233,7 +233,7 @@
     "gt_instances": 4,
     "pred_instances": 5,
     "number_of_faces_error": 1,
-    "over_segmentation_rate": 0.0,
+    "over_segmentation_rate": 0.25,
     "under_segmentation_rate": 0.0,
     "complexity": "moderate"
   },
@@ -539,7 +539,7 @@
     "gt_instances": 4,
     "pred_instances": 5,
     "number_of_faces_error": 1,
-    "over_segmentation_rate": 0.0,
+    "over_segmentation_rate": 0.25,
     "under_segmentation_rate": 0.0,
     "complexity": "moderate"
   },
@@ -557,7 +557,7 @@
     "pred_instances": 6,
     "number_of_faces_error": 0,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.16666666666666666,
     "complexity": "complex"
   },
   {
@@ -590,7 +590,7 @@
     "gt_instances": 2,
     "pred_instances": 3,
     "number_of_faces_error": 1,
-    "over_segmentation_rate": 0.0,
+    "over_segmentation_rate": 0.5,
     "under_segmentation_rate": 0.0,
     "complexity": "simple"
   },
@@ -642,7 +642,7 @@
     "pred_instances": 5,
     "number_of_faces_error": 1,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.2,
     "complexity": "moderate"
   },
   {
@@ -727,7 +727,7 @@
     "pred_instances": 1,
     "number_of_faces_error": 1,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 1.0,
     "complexity": "simple"
   },
   {
@@ -778,7 +778,7 @@
     "pred_instances": 4,
     "number_of_faces_error": 0,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.25,
     "complexity": "moderate"
   },
   {
@@ -897,7 +897,7 @@
     "pred_instances": 3,
     "number_of_faces_error": 1,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.3333333333333333,
     "complexity": "simple"
   },
   {
@@ -999,7 +999,7 @@
     "pred_instances": 3,
     "number_of_faces_error": 1,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.3333333333333333,
     "complexity": "moderate"
   },
   {
@@ -1049,8 +1049,8 @@
     "gt_instances": 4,
     "pred_instances": 6,
     "number_of_faces_error": 2,
-    "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "over_segmentation_rate": 0.25,
+    "under_segmentation_rate": 0.16666666666666666,
     "complexity": "moderate"
   },
   {
@@ -1152,7 +1152,7 @@
     "pred_instances": 3,
     "number_of_faces_error": 0,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.3333333333333333,
     "complexity": "moderate"
   },
   {
@@ -1219,7 +1219,7 @@
     "gt_instances": 7,
     "pred_instances": 6,
     "number_of_faces_error": 1,
-    "over_segmentation_rate": 0.0,
+    "over_segmentation_rate": 0.14285714285714285,
     "under_segmentation_rate": 0.0,
     "complexity": "complex"
   },
@@ -1237,7 +1237,7 @@
     "pred_instances": 2,
     "number_of_faces_error": 0,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.5,
     "complexity": "simple"
   },
   {
@@ -1322,7 +1322,7 @@
     "pred_instances": 5,
     "number_of_faces_error": 1,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.2,
     "complexity": "complex"
   },
   {
@@ -1440,7 +1440,7 @@
     "gt_instances": 4,
     "pred_instances": 5,
     "number_of_faces_error": 1,
-    "over_segmentation_rate": 0.0,
+    "over_segmentation_rate": 0.25,
     "under_segmentation_rate": 0.0,
     "complexity": "moderate"
   },
@@ -1628,7 +1628,7 @@
     "pred_instances": 3,
     "number_of_faces_error": 1,
     "over_segmentation_rate": 0.0,
-    "under_segmentation_rate": 0.0,
+    "under_segmentation_rate": 0.3333333333333333,
     "complexity": "moderate"
   },
   {

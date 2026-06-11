@@ -8,7 +8,7 @@
   "mean_mPrec": 0.9179172679172679,
   "mean_mWPrec": 0.9699315350335775,
   "mean_number_of_faces_error": 0.31313131313131315,
-  "mean_over_segmentation_rate": 0.0,
-  "mean_under_segmentation_rate": 0.0,
+  "mean_over_segmentation_rate": 0.01911976911976912,
+  "mean_under_segmentation_rate": 0.03855218855218855,
   "n_scenes": 99.0
 }
