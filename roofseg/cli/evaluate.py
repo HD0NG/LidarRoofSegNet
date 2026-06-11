@@ -31,7 +31,29 @@ def build_parser() -> argparse.ArgumentParser:
         prog="roofseg-evaluate",
         description="Evaluate a PointUNet checkpoint with the canonical inference pipeline.",
     )
-    p.add_argument("--checkpoint", required=True, help="path to .pth state_dict")
+    p.add_argument(
+        "--checkpoint",
+        default=None,
+        help="path to .pth state_dict; required unless --baseline is set",
+    )
+    p.add_argument(
+        "--baseline",
+        default=None,
+        choices=["region_growing", "softmax"],
+        help="run a baseline instead of the embedding pipeline; "
+        "region_growing skips any model, softmax loads --softmax-checkpoint",
+    )
+    p.add_argument(
+        "--softmax-checkpoint",
+        default=None,
+        help="state_dict for the closed-set softmax baseline (required when --baseline softmax)",
+    )
+    p.add_argument(
+        "--num-classes",
+        type=int,
+        default=8,
+        help="K for the softmax baseline; ignored otherwise",
+    )
     p.add_argument(
         "--data-root",
         default="data/roofNTNU/train_test_split",
@@ -83,6 +105,17 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if args.baseline is None and args.checkpoint is None:
+        print(
+            "--checkpoint is required unless --baseline is set", file=sys.stderr
+        )
+        return 2
+    if args.baseline == "softmax" and args.softmax_checkpoint is None:
+        print(
+            "--softmax-checkpoint is required when --baseline softmax",
+            file=sys.stderr,
+        )
+        return 2
     _add_repo_root_to_syspath()
 
     # Heavy imports happen here so `python -m roofseg.cli.evaluate --help` is fast
@@ -99,17 +132,33 @@ def main(argv: list[str] | None = None) -> int:
     device = select_device(args.device)
     print(f"Device: {describe_device(device)}")
 
-    # PyG-touching imports: model + clustering + refinement.
-    from roofseg.clustering import cluster_embeddings
+    # Refinement / inference imports (PyG-free).
     from roofseg.inference import PipelineConfig, run_inference
-    from roofseg.models import default_config, load_pointunet
+    from roofseg.models import default_config  # safe — PyG load is lazy inside load_pointunet
 
     # Dataset comes from the legacy module so eval matches training subsampling.
     import trainModel as tm
 
     config = default_config()
-    model = load_pointunet(args.checkpoint, config=config, map_location=device).to(device)
-    model.eval()
+    model = None
+    softmax_model = None
+    if args.baseline is None:
+        # PyG-touching import deferred until we actually need the model.
+        from roofseg.models import load_pointunet
+
+        model = load_pointunet(args.checkpoint, config=config, map_location=device).to(device)
+        model.eval()
+    elif args.baseline == "softmax":
+        from roofseg.baselines.softmax_classifier import SoftmaxClassifier
+
+        softmax_model = SoftmaxClassifier(
+            config=config, num_classes=args.num_classes
+        ).to(device)
+        state = torch.load(args.softmax_checkpoint, map_location=device)
+        softmax_model.load_state_dict(state)
+        softmax_model.eval()
+    else:  # region_growing
+        from roofseg.baselines import region_growing_segment  # noqa: F401
 
     dataset = tm.LiDARPointCloudDataset(
         base_dir=args.data_root,
@@ -143,7 +192,8 @@ def main(argv: list[str] | None = None) -> int:
 
     rows = []
     n_scenes = len(dataset) if args.limit is None else min(args.limit, len(dataset))
-    print(f"Evaluating {n_scenes} scenes from split={args.split} | clusterer={args.clusterer} "
+    clusterer_name = args.baseline if args.baseline else args.clusterer
+    print(f"Evaluating {n_scenes} scenes from split={args.split} | clusterer={clusterer_name} "
           f"| refinement={'on' if pipeline_config.apply_refinement else 'off'} "
           f"| scorer={scorer_name} "
           f"| noise_recovery={'on' if pipeline_config.recover_noise else 'off'}")
@@ -157,10 +207,23 @@ def main(argv: list[str] | None = None) -> int:
             points_t = points_t.to(device)
             gt_labels = labels_t.cpu().numpy()[0]
 
-            embeddings = model(points_t)[0].cpu().numpy()
             points_xyz = points_t[0, :, :3].cpu().numpy()
-
-            result = run_inference(points_xyz, embeddings, pipeline_config, scorer=scorer)
+            if args.baseline == "region_growing":
+                cluster_labels = region_growing_segment(points_xyz)
+                result = run_inference(
+                    points_xyz, None, pipeline_config,
+                    scorer=scorer, cluster_labels=cluster_labels,
+                )
+            elif args.baseline == "softmax":
+                logits = softmax_model(points_t)[0]  # (N, K)
+                cluster_labels = logits.argmax(dim=-1).cpu().numpy().astype(np.int64)
+                result = run_inference(
+                    points_xyz, None, pipeline_config,
+                    scorer=scorer, cluster_labels=cluster_labels,
+                )
+            else:
+                embeddings = model(points_t)[0].cpu().numpy()
+                result = run_inference(points_xyz, embeddings, pipeline_config, scorer=scorer)
             pred_labels = result.final_labels
 
             valid = gt_labels != -1

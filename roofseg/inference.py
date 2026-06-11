@@ -51,20 +51,38 @@ class PipelineResult:
 
 def run_inference(
     points: np.ndarray,
-    embeddings: np.ndarray,
+    embeddings: np.ndarray | None,
     config: PipelineConfig,
     *,
     scorer: MergeScorer | None = None,
+    cluster_labels: np.ndarray | None = None,
 ) -> PipelineResult:
-    """Run the canonical pipeline. ``points`` and ``embeddings`` align on axis 0."""
-    if points.shape[0] != embeddings.shape[0]:
-        raise ValueError(
-            f"points/embeddings length mismatch: {points.shape[0]} vs {embeddings.shape[0]}"
-        )
+    """Run the canonical pipeline.
 
-    clustering = cluster_embeddings(
-        embeddings, method=config.clusterer, **config.clusterer_overrides
-    )
+    When ``cluster_labels`` is provided (baseline path), they are used directly
+    and ``embeddings`` is ignored. Otherwise ``embeddings`` is clustered with
+    the configured clusterer; ``points`` and ``embeddings`` must align on axis 0.
+    """
+    if cluster_labels is not None:
+        if cluster_labels.shape[0] != points.shape[0]:
+            raise ValueError(
+                f"points/cluster_labels length mismatch: "
+                f"{points.shape[0]} vs {cluster_labels.shape[0]}"
+            )
+        clustering = ClusteringResult(
+            labels=cluster_labels.astype(np.int64).copy(),
+            method="precomputed",
+        )
+    else:
+        if embeddings is None:
+            raise ValueError("provide either embeddings or cluster_labels")
+        if points.shape[0] != embeddings.shape[0]:
+            raise ValueError(
+                f"points/embeddings length mismatch: {points.shape[0]} vs {embeddings.shape[0]}"
+            )
+        clustering = cluster_embeddings(
+            embeddings, method=config.clusterer, **config.clusterer_overrides
+        )
     labels = clustering.labels.copy()
 
     refinement: RefinementResult | None = None
