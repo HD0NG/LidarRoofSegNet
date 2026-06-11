@@ -15,7 +15,7 @@ outputs/
 results/
 # logs/
 checkpoints/
-*.csv
+# *.csv
 plots/
 evaluation_results/*.html
 # models/
