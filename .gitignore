@@ -9,8 +9,8 @@
 *.pyd
 __pycache__/
 
-# data folders
-data/
+# data folders (anchored to repo root so roofseg/data/ source is NOT ignored)
+/data/
 outputs/
 results/
 # logs/
