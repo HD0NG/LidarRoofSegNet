@@ -79,9 +79,13 @@ def main(argv: list[str] | None = None) -> int:
                              squeeze=False)
     for r, path in enumerate(paths):
         d = np.load(path)
-        xy = d["points"][:, :2]
+        # Restrict to real points (gt != -1); padding points are clustered by
+        # the model but excluded from metrics, so plotting/counting them would
+        # inflate face counts relative to the reported tables.
+        valid = d["gt"] != -1
+        xy = d["points"][valid][:, :2]
         for c, (key, title) in enumerate(COLUMNS):
-            _scatter(axes[r][c], xy, d[key], title if r == 0 else title)
+            _scatter(axes[r][c], xy, d[key][valid], title)
         axes[r][0].set_ylabel(path.stem, fontsize=9)
 
     fig.tight_layout()
