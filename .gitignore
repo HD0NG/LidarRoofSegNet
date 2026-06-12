@@ -20,6 +20,12 @@ plots/
 evaluation_results/*.html
 # models/
 
+# Regenerable binary artifacts — kept on disk, not in git (they churn history
+# with no readable diff and are reproduced by the eval/plot scripts).
+# Text results (*_summary.json, *.csv, metrics.json) stay tracked: they diff.
+*.npz
+paper/figures/*.png
+
 # AI-generated files
 .claude/
 *.html

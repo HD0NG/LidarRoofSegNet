@@ -73,7 +73,9 @@ def main(argv: list[str] | None = None) -> int:
     out = Path(args.out_prefix)
     out.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(out.with_suffix(".png"), dpi=300, bbox_inches="tight")
-    fig.savefig(out.with_suffix(".pdf"), bbox_inches="tight")  # vector for LaTeX
+    # Strip the nondeterministic CreationDate so the tracked PDF is byte-stable
+    # across re-renders (no spurious git churn).
+    fig.savefig(out.with_suffix(".pdf"), bbox_inches="tight", metadata={"CreationDate": None})
     print(f"Wrote {out.with_suffix('.png')} and {out.with_suffix('.pdf')}")
     return 0
 
