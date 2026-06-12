@@ -1,0 +1,123 @@
+{
+  "results": [
+    {
+      "k": 1,
+      "features": [
+        "f_joint_residual"
+      ],
+      "val_metrics": {
+        "accuracy": 0.8023088023088023,
+        "f1": 0.6761229314420804,
+        "precision": 0.55,
+        "recall": 0.8773006134969326,
+        "positive_rate_true": 0.2352092352092352,
+        "positive_rate_pred": 0.37518037518037517,
+        "n": 693,
+        "roc_auc": 0.8900914457691863,
+        "pr_auc": 0.6301637342307306,
+        "best_f1": 0.6880733944954128
+      }
+    },
+    {
+      "k": 2,
+      "features": [
+        "f_joint_residual",
+        "f_aspect_diff"
+      ],
+      "val_metrics": {
+        "accuracy": 0.7647907647907648,
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "positive_rate_true": 0.2352092352092352,
+        "positive_rate_pred": 0.0,
+        "n": 693,
+        "roc_auc": 0.9375217039009144,
+        "pr_auc": 0.7770520281443208,
+        "best_f1": 0.7619047619047619
+      }
+    },
+    {
+      "k": 3,
+      "features": [
+        "f_joint_residual",
+        "f_aspect_diff",
+        "f_slope_diff"
+      ],
+      "val_metrics": {
+        "accuracy": 0.7647907647907648,
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "positive_rate_true": 0.2352092352092352,
+        "positive_rate_pred": 0.0,
+        "n": 693,
+        "roc_auc": 0.9511922676235676,
+        "pr_auc": 0.8060829862198859,
+        "best_f1": 0.8111111111111111
+      }
+    },
+    {
+      "k": 5,
+      "features": [
+        "f_joint_residual",
+        "f_aspect_diff",
+        "f_slope_diff",
+        "f_normal_angle",
+        "f_residual_a"
+      ],
+      "val_metrics": {
+        "accuracy": 0.7647907647907648,
+        "f1": 0.0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "positive_rate_true": 0.2352092352092352,
+        "positive_rate_pred": 0.0,
+        "n": 693,
+        "roc_auc": 0.9559960643593008,
+        "pr_auc": 0.8286420674810878,
+        "best_f1": 0.8087431693989071
+      }
+    },
+    {
+      "k": 11,
+      "features": [
+        "f_joint_residual",
+        "f_aspect_diff",
+        "f_slope_diff",
+        "f_normal_angle",
+        "f_residual_a",
+        "f_size_ratio",
+        "f_size_a",
+        "f_size_b",
+        "f_boundary_distance",
+        "f_residual_b",
+        "f_offset_diff"
+      ],
+      "val_metrics": {
+        "accuracy": 0.9033189033189033,
+        "f1": 0.8194070080862533,
+        "precision": 0.7307692307692307,
+        "recall": 0.9325153374233128,
+        "positive_rate_true": 0.2352092352092352,
+        "positive_rate_pred": 0.30014430014430016,
+        "n": 693,
+        "roc_auc": 0.9670332214376665,
+        "pr_auc": 0.85603288920733,
+        "best_f1": 0.8433734939759037
+      }
+    }
+  ],
+  "full_reference": {
+    "accuracy": 0.9033189033189033,
+    "f1": 0.8194070080862533,
+    "precision": 0.7307692307692307,
+    "recall": 0.9325153374233128,
+    "positive_rate_true": 0.2352092352092352,
+    "positive_rate_pred": 0.30014430014430016,
+    "n": 693,
+    "roc_auc": 0.9670332214376665,
+    "pr_auc": 0.85603288920733,
+    "best_f1": 0.8433734939759037
+  }
+}
