@@ -1,0 +1,14 @@
+{
+  "mean_ARI": 0.7951131878676304,
+  "mean_NMI": 0.7899767658306069,
+  "mean_mIoU": 0.8485502830974347,
+  "mean_mCov": 0.8457182018229115,
+  "mean_mWCov": 0.8863724729029556,
+  "mean_mRec": 0.8690503562585274,
+  "mean_mPrec": 0.7524924032949325,
+  "mean_mWPrec": 0.9315611702712743,
+  "mean_number_of_faces_error": 1.2003891050583657,
+  "mean_over_segmentation_rate": 0.037869944582006834,
+  "mean_under_segmentation_rate": 0.12408482136108595,
+  "n_scenes": 514.0
+}
