@@ -166,26 +166,41 @@ class LiDARPointCloudDataset(Dataset):
             assert len(self.point_files) == len(self.label_files), \
                 f"Mismatch in points and labels count for split '{split}'."
 
-    def _farthest_point_sampling(self, points, n_samples):
+    def _scene_seed(self, idx):
+        """Stable per-scene seed derived from the point filename.
+
+        Uses crc32 (not Python's salted ``hash``) so the seed is identical
+        across processes and independent of dataset access order. This makes
+        ``__getitem__`` deterministic: the same scene always yields the same
+        subsample whether the dataset is iterated sequentially (eval) or
+        indexed directly (qualitative dump).
+        """
+        import zlib
+
+        return zlib.crc32(self.point_files[idx].encode("utf-8")) & 0xFFFFFFFF
+
+    def _farthest_point_sampling(self, points, n_samples, rng=None):
         """
         Performs Farthest Point Sampling (FPS).
         Selects points that are farthest from each other to ensure uniform coverage.
-        
+
         Args:
             points: (N, 3) or (N, D) numpy array
             n_samples: int, number of points to select
+            rng: optional np.random.Generator for a deterministic start point;
+                falls back to the global RNG when None (legacy behaviour).
         Returns:
             indices: (n_samples,) numpy array of selected indices
         """
         N, D = points.shape
         xyz = points[:, :3]  # Use only spatial coordinates for distance
         centroids = np.zeros((n_samples,), dtype=np.int64)
-        
+
         # Initialize distances with infinity
         distance = np.ones((N,), dtype=np.float64) * 1e10
-        
-        # Select the first point randomly
-        farthest = np.random.randint(0, N)
+
+        # Select the first point (deterministic when an rng is supplied)
+        farthest = int(rng.integers(0, N)) if rng is not None else np.random.randint(0, N)
         
         for i in range(n_samples):
             centroids[i] = farthest
@@ -251,14 +266,20 @@ class LiDARPointCloudDataset(Dataset):
         relabeled = np.array([remap.get(l, -1) for l in labels], dtype=np.int64)
         return relabeled, len(unique)
 
-    def pad_or_subsample(self, points, labels):
-        """Ensures a fixed number of points per cloud using padding or subsampling."""
+    def pad_or_subsample(self, points, labels, rng=None):
+        """Ensures a fixed number of points per cloud using padding or subsampling.
+
+        ``rng`` (an np.random.Generator) makes the subsample deterministic per
+        scene; when None the global RNG is used (legacy behaviour).
+        """
         num_points = points.shape[0]
 
         if num_points > self.max_points:
             # Downsample
             if self.sampling_method == 'fps':
-                indices = self._farthest_point_sampling(points, self.max_points)
+                indices = self._farthest_point_sampling(points, self.max_points, rng=rng)
+            elif rng is not None:
+                indices = rng.choice(num_points, self.max_points, replace=False)
             else:
                 # Randomly sample points
                 indices = np.random.choice(num_points, self.max_points, replace=False)
@@ -285,8 +306,10 @@ class LiDARPointCloudDataset(Dataset):
         point_cloud = self.load_point_cloud(point_path)
         labels = self.load_labels(label_path, num_points=point_cloud.shape[0])
 
-        # 1. Subsample/Pad
-        point_cloud, labels = self.pad_or_subsample(point_cloud, labels)
+        # 1. Subsample/Pad — deterministic per scene so the subsample is
+        #    independent of access order and reproducible across processes.
+        rng = np.random.default_rng(self._scene_seed(idx))
+        point_cloud, labels = self.pad_or_subsample(point_cloud, labels, rng=rng)
         
         # 2. DATA AUGMENTATION (Training Only)
         # We apply this BEFORE Normal Calculation so normals are consistent with rotated geometry
