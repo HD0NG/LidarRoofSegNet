@@ -43,12 +43,13 @@ def _scatter(ax, xy, labels, title):
     labels = _size_ordered(labels)
     noise = labels == -1
     if noise.any():
-        ax.scatter(xy[noise, 0], xy[noise, 1], s=3, c="#d9d9d9", linewidths=0)
+        ax.scatter(xy[noise, 0], xy[noise, 1], s=5, c="#d9d9d9", linewidths=0)
     for k in range(labels.max() + 1 if labels.max() >= 0 else 0):
         m = labels == k
-        ax.scatter(xy[m, 0], xy[m, 1], s=4, color=_CMAP(k % 20), linewidths=0)
+        ax.scatter(xy[m, 0], xy[m, 1], s=7, color=_CMAP(k % 20), linewidths=0)
     n = int(np.unique(labels[labels != -1]).size)
-    ax.set_title(f"{title}\n({n} face{'s' if n != 1 else ''})", fontsize=9)
+    ax.set_title(f"{title}\n({n} face{'s' if n != 1 else ''})",
+                 fontsize=15, fontweight="bold")
     ax.set_aspect("equal")
     ax.set_xticks([]); ax.set_yticks([])
     for s in ax.spines.values():
@@ -86,7 +87,7 @@ def main(argv: list[str] | None = None) -> int:
         xy = d["points"][valid][:, :2]
         for c, (key, title) in enumerate(COLUMNS):
             _scatter(axes[r][c], xy, d[key][valid], title)
-        axes[r][0].set_ylabel(path.stem, fontsize=9)
+        axes[r][0].set_ylabel(path.stem, fontsize=14, fontweight="bold")
 
     fig.tight_layout()
     out = Path(args.out_prefix)

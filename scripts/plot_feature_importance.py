@@ -39,7 +39,18 @@ def main(argv: list[str] | None = None) -> int:
     names = [_pretty(k) for k, _ in items]
     values = [v for _, v in items]
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4.2))
+    # Larger, bolder text for print legibility.
+    plt.rcParams.update({
+        "font.size": 13,
+        "axes.titlesize": 16,
+        "axes.titleweight": "bold",
+        "axes.labelsize": 14,
+        "axes.labelweight": "bold",
+        "xtick.labelsize": 12,
+        "ytick.labelsize": 12,
+    })
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.8))
 
     # Panel (a): gain importance.
     colors = ["#c44e52" if n == "joint residual" else "#4c72b0" for n in names]
@@ -47,8 +58,12 @@ def main(argv: list[str] | None = None) -> int:
     ax1.set_xlabel("LightGBM gain importance")
     ax1.set_title("(a) Feature importance")
     for y, v in enumerate(values):
-        ax1.text(v + max(values) * 0.01, y, f"{v:,.0f}", va="center", fontsize=8)
-    ax1.set_xlim(0, max(values) * 1.15)
+        ax1.text(v + max(values) * 0.01, y, f"{v:,.0f}", va="center",
+                 fontsize=11, fontweight="bold")
+    ax1.set_xlim(0, max(values) * 1.18)
+    ax1.tick_params(labelsize=12)
+    for lbl in ax1.get_yticklabels():
+        lbl.set_fontweight("bold")
     ax1.spines[["top", "right"]].set_visible(False)
 
     # Panel (b): parsimony curve.
@@ -56,17 +71,17 @@ def main(argv: list[str] | None = None) -> int:
     ks = [r["k"] for r in abl["results"]]
     pr = [r["val_metrics"]["pr_auc"] for r in abl["results"]]
     full = abl["full_reference"]["pr_auc"]
-    ax2.plot(ks, pr, marker="o", color="#4c72b0", label="top-k subset")
-    ax2.axhline(full, ls="--", color="#c44e52", lw=1, label=f"full model ({full:.3f})")
+    ax2.plot(ks, pr, marker="o", markersize=8, lw=2.2, color="#4c72b0", label="top-k subset")
+    ax2.axhline(full, ls="--", color="#c44e52", lw=2, label=f"full model ({full:.3f})")
     ax2.set_xlabel("number of top-k features")
     ax2.set_ylabel("validation PR-AUC")
     ax2.set_title("(b) Parsimony: PR-AUC vs feature count")
     ax2.set_xticks(ks)
     for k, v in zip(ks, pr):
         ax2.annotate(f"{100*v/full:.0f}%", (k, v), textcoords="offset points",
-                     xytext=(0, -14), ha="center", fontsize=8, color="#555")
+                     xytext=(0, -16), ha="center", fontsize=11, fontweight="bold", color="#333")
     ax2.set_ylim(min(pr) * 0.96, full * 1.03)
-    ax2.legend(loc="lower right", frameon=False, fontsize=9)
+    ax2.legend(loc="lower right", frameon=False, fontsize=12)
     ax2.spines[["top", "right"]].set_visible(False)
 
     fig.tight_layout()

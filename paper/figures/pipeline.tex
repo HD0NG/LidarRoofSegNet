@@ -1,0 +1,62 @@
+% Canonical inference pipeline for LidarRoofSegNet (CONTEXT.md):
+%   embeddings -> clusterer -> plane-aware refinement -> noise recovery -> labels
+% Self-contained standalone TikZ — compiles in Overleaf as-is, or \input into the
+% manuscript inside a figure environment (drop the \documentclass..\begin{document}).
+\documentclass[border=6pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta, positioning, fit, backgrounds, calc}
+
+\definecolor{cInput}{HTML}{6E7B8B}
+\definecolor{cNet}{HTML}{4C72B0}
+\definecolor{cContrib}{HTML}{C44E52}
+\definecolor{cOut}{HTML}{55A868}
+
+\begin{document}
+\begin{tikzpicture}[
+  font=\sffamily,
+  >={Stealth[length=3mm]},
+  block/.style={rectangle, rounded corners=3pt, draw=#1, line width=1pt,
+                fill=#1!8, text=black, align=center, minimum height=12mm,
+                inner sep=4pt, text width=24mm},
+  io/.style={block=cInput},
+  net/.style={block=cNet},
+  contrib/.style={rectangle, rounded corners=3pt, draw=cContrib, line width=1pt,
+                  fill=cContrib!10, align=center, minimum height=11mm,
+                  inner sep=3pt, text width=21mm},
+  out/.style={block=cOut},
+  flow/.style={->, line width=1.1pt, draw=black!70},
+  note/.style={font=\sffamily\footnotesize\itshape, text=black!55},
+]
+
+% --- main left-to-right chain ---
+\node[io] (pc) {Roof point cloud\\[1pt]\footnotesize $N\times3$ (XYZ)};
+\node[net, right=8mm of pc] (enc) {DGCNN encoder\\[1pt]\footnotesize discriminative loss};
+\node[net, right=8mm of enc] (clu) {HDBSCAN\\clustering};
+
+% --- plane-aware refinement (the contribution) ---
+\node[contrib, right=14mm of clu] (graph) {Cluster graph\\[1pt]\footnotesize SVD planes + KDTree adj.};
+\node[contrib, right=6mm of graph] (clf) {LightGBM\\merge classifier};
+\node[contrib, right=6mm of clf] (merge) {Pairwise-greedy\\merge + rescore};
+
+\node[net, right=14mm of merge] (noise) {Noise\\recovery};
+\node[out, right=8mm of noise] (lab) {Roof-face\\instance labels};
+
+% --- dashed box grouping the refinement, with a contribution banner ---
+\begin{scope}[on background layer]
+  \node[draw=cContrib, dashed, line width=1pt, rounded corners=4pt,
+        fill=cContrib!3, fit=(graph)(clf)(merge), inner sep=7pt] (refbox) {};
+\end{scope}
+\node[note, text=cContrib, anchor=south] at (refbox.north) {Plane-aware refinement — contribution (ADR-0001, ADR-0002)};
+
+% --- flow arrows ---
+\draw[flow] (pc) -- (enc);
+\draw[flow] (enc) -- node[note, above]{$N\times64$} (clu);
+\draw[flow] (clu) -- node[note, above, align=center]{over-\\segmented} (graph);
+\draw[flow] (graph) -- (clf);
+\draw[flow] (clf) -- node[note, above]{$P(\text{merge})$} (merge);
+\draw[flow] (merge) -- (noise);
+\draw[flow] (noise) -- (lab);
+
+\end{tikzpicture}
+\end{document}
