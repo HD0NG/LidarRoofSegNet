@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-import math
-
 import numpy as np
 
 from roofseg.metrics import (
     aggregate,
+    instance_mean_iou,
     iou_matrix,
     number_of_faces_error,
     over_under_segmentation_rates,
@@ -32,6 +31,11 @@ def test_iou_matrix_ignores_padding():
     # GT noise excluded → only gt ids 0 and 1
     assert set(gt_ids.tolist()) == {0, 1}
     assert set(pred_ids.tolist()) == {0, 1}
+
+
+def test_instance_mean_iou_counts_unmatched_gt_as_zero():
+    iou = np.array([[1.0], [0.25]])
+    assert instance_mean_iou(iou) == 0.5
 
 
 def test_number_of_faces_error_overseg():
@@ -82,14 +86,21 @@ def test_under_segmentation_rate_detects_merge():
     assert under > 0.0
 
 
-def test_scene_metrics_single_gt_class_yields_nan_ari():
-    # CONTEXT.md: ARI is undefined when ground truth has only one class.
+def test_scene_metrics_single_gt_class_uses_sklearn_perfect_match_convention():
     gt = np.zeros(10, dtype=np.int64)
     pred = np.zeros(10, dtype=np.int64)
     m = scene_metrics("scene_x", gt, pred)
-    assert math.isnan(m.ARI)
-    assert math.isnan(m.NMI)
+    assert m.ARI == 1.0
+    assert m.NMI == 1.0
     assert m.gt_instances == 1
+
+
+def test_scene_metrics_single_gt_class_uses_sklearn_split_convention():
+    gt = np.zeros(10, dtype=np.int64)
+    pred = np.array([0] * 5 + [1] * 5, dtype=np.int64)
+    m = scene_metrics("scene_x", gt, pred)
+    assert m.ARI == 0.0
+    assert m.NMI == 0.0
 
 
 def test_scene_metrics_basic_fields_present():
@@ -120,12 +131,11 @@ def test_scene_metrics_basic_fields_present():
     assert d["complexity"] == "moderate"
 
 
-def test_aggregate_nan_safe():
+def test_aggregate_includes_single_gt_class():
     rows = [
-        scene_metrics("a", np.array([0, 0, 0]), np.array([0, 0, 0])),  # nan ARI
+        scene_metrics("a", np.array([0, 0, 0]), np.array([0, 0, 0])),
         scene_metrics("b", np.array([0, 0, 1, 1]), np.array([0, 0, 1, 1])),
     ]
     summary = aggregate(rows)
-    # mean_ARI should ignore the NaN row and still produce a finite value.
-    assert math.isfinite(summary["mean_ARI"])
+    assert summary["mean_ARI"] == 1.0
     assert summary["n_scenes"] == 2.0

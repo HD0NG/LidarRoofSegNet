@@ -98,11 +98,16 @@ def coverage_metrics(
 
 
 def instance_mean_iou(iou: np.ndarray) -> float:
-    """mIoU via Hungarian linear assignment on the IoU matrix."""
+    """GT-normalized mIoU via Hungarian assignment.
+
+    Unmatched ground-truth instances contribute zero. Extra predictions are
+    not added to the denominator; prediction-side errors are captured by the
+    precision metrics.
+    """
     if iou.size == 0 or min(iou.shape) == 0:
         return 0.0
     row_ind, col_ind = linear_sum_assignment(-iou)
-    return float(iou[row_ind, col_ind].mean())
+    return float(iou[row_ind, col_ind].sum() / iou.shape[0])
 
 
 # --------------------------------------------------------------------------
@@ -208,13 +213,10 @@ def scene_metrics(
     gt_ids = _unique_non_padding(gt_labels)
     n_gt = len(gt_ids)
 
-    # CONTEXT.md flagged: ARI is undefined when only one GT class.
-    if n_gt <= 1:
-        ari = float("nan")
-        nmi = float("nan")
-    else:
-        ari = float(adjusted_rand_score(gt_labels, pred_labels))
-        nmi = float(normalized_mutual_info_score(gt_labels, pred_labels))
+    # Use sklearn's defined conventional behaviour for single-class scenes:
+    # 1.0 for a matching single cluster and 0.0 when that class is split.
+    ari = float(adjusted_rand_score(gt_labels, pred_labels))
+    nmi = float(normalized_mutual_info_score(gt_labels, pred_labels))
 
     iou, _, _, gt_sizes, pred_sizes = iou_matrix(gt_labels, pred_labels)
     cov = coverage_metrics(iou, gt_sizes, pred_sizes, iou_threshold=iou_threshold)
@@ -243,7 +245,7 @@ def scene_metrics(
 
 
 def aggregate(metrics: Iterable[SceneMetrics]) -> dict[str, float]:
-    """Means across scenes; NaN-aware (e.g. ARI is NaN when gt_instances=1)."""
+    """Means across scenes, ignoring any NaN metric values."""
     rows = [m.to_dict() for m in metrics]
     if not rows:
         return {}

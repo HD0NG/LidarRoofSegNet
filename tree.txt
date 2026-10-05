@@ -1,0 +1,295 @@
+.
+├── .gitattributes
+├── .gitignore
+├── LICENSE
+├── README.md
+├── ablation.config.js
+├── artifacts
+│   ├── merge_classifier
+│   │   ├── feature_ablation.json
+│   │   ├── fold_0
+│   │   ├── fold_1
+│   │   ├── fold_2
+│   │   ├── fold_3
+│   │   ├── fold_4
+│   │   ├── metrics.json
+│   │   └── model.txt
+│   ├── merge_classifier_smoke
+│   │   └── fold_0
+│   └── softmax_baseline
+│       ├── model.pth
+│       └── train_log.json
+├── building3d.config.js
+├── configs
+│   └── folds.json
+├── data
+│   ├── Building3D
+│   │   ├── Entry-level
+│   │   └── converted
+│   ├── entry_level.zip
+│   ├── roofNTNU
+│   │   ├── roof_clouds_normed
+│   │   └── train_test_split
+│   └── roofNTNU.zip
+├── dataSplit.ipynb
+├── data_augmentation.py
+├── datapre.ipynb
+├── evaluation_results
+│   ├── ablation_handtuned.json
+│   ├── ablation_handtuned_summary.json
+│   ├── ablation_lightgbm.json
+│   ├── ablation_lightgbm_summary.json
+│   ├── ablation_matrix.csv
+│   ├── ablation_raw.json
+│   ├── ablation_raw_summary.json
+│   ├── building3d_handtuned.json
+│   ├── building3d_handtuned_summary.json
+│   ├── building3d_lgb06.json
+│   ├── building3d_lgb06_summary.json
+│   ├── building3d_raw.json
+│   ├── building3d_raw_summary.json
+│   ├── evaluation_summary.json
+│   ├── matrix_dgcnn_handtuned.json
+│   ├── matrix_dgcnn_handtuned_summary.json
+│   ├── matrix_dgcnn_lgb06.json
+│   ├── matrix_dgcnn_lgb06_summary.json
+│   ├── matrix_dgcnn_off.json
+│   ├── matrix_dgcnn_off_summary.json
+│   ├── matrix_rg_handtuned.json
+│   ├── matrix_rg_handtuned_summary.json
+│   ├── matrix_rg_lgb06.json
+│   ├── matrix_rg_lgb06_summary.json
+│   ├── matrix_rg_off.json
+│   ├── matrix_rg_off_summary.json
+│   ├── matrix_softmax_handtuned.json
+│   ├── matrix_softmax_handtuned_summary.json
+│   ├── matrix_softmax_lgb06.json
+│   ├── matrix_softmax_lgb06_summary.json
+│   ├── matrix_softmax_off.json
+│   ├── matrix_softmax_off_summary.json
+│   ├── qualitative
+│   │   ├── scene_002.npz
+│   │   ├── scene_017.npz
+│   │   ├── scene_037.npz
+│   │   └── scene_075.npz
+│   ├── scene_000_comparison.html
+│   ├── scene_001_comparison.html
+│   ├── scene_002_comparison.html
+│   ├── scene_003_comparison.html
+│   ├── scene_004_comparison.html
+│   ├── scene_005_comparison.html
+│   ├── scene_006_comparison.html
+│   ├── scene_007_comparison.html
+│   ├── scene_008_comparison.html
+│   ├── scene_009_comparison.html
+│   ├── scene_010_comparison.html
+│   ├── scene_011_comparison.html
+│   ├── scene_012_comparison.html
+│   ├── scene_013_comparison.html
+│   ├── scene_014_comparison.html
+│   ├── scene_015_comparison.html
+│   ├── scene_016_comparison.html
+│   ├── scene_017_comparison.html
+│   ├── scene_018_comparison.html
+│   ├── scene_019_comparison.html
+│   ├── scene_020_comparison.html
+│   ├── scene_021_comparison.html
+│   ├── scene_022_comparison.html
+│   ├── scene_023_comparison.html
+│   ├── scene_024_comparison.html
+│   ├── scene_025_comparison.html
+│   ├── scene_026_comparison.html
+│   ├── scene_027_comparison.html
+│   ├── scene_028_comparison.html
+│   ├── scene_029_comparison.html
+│   ├── scene_030_comparison.html
+│   ├── scene_031_comparison.html
+│   ├── scene_032_comparison.html
+│   ├── scene_033_comparison.html
+│   ├── scene_034_comparison.html
+│   ├── scene_035_comparison.html
+│   ├── scene_036_comparison.html
+│   ├── scene_037_comparison.html
+│   ├── scene_038_comparison.html
+│   ├── scene_039_comparison.html
+│   ├── scene_040_comparison.html
+│   ├── scene_041_comparison.html
+│   ├── scene_042_comparison.html
+│   ├── scene_043_comparison.html
+│   ├── scene_044_comparison.html
+│   ├── scene_045_comparison.html
+│   ├── scene_046_comparison.html
+│   ├── scene_047_comparison.html
+│   ├── scene_048_comparison.html
+│   ├── scene_049_comparison.html
+│   ├── scene_050_comparison.html
+│   ├── scene_051_comparison.html
+│   ├── scene_052_comparison.html
+│   ├── scene_053_comparison.html
+│   ├── scene_054_comparison.html
+│   ├── scene_055_comparison.html
+│   ├── scene_056_comparison.html
+│   ├── scene_057_comparison.html
+│   ├── scene_058_comparison.html
+│   ├── scene_059_comparison.html
+│   ├── scene_060_comparison.html
+│   ├── scene_061_comparison.html
+│   ├── scene_062_comparison.html
+│   ├── scene_063_comparison.html
+│   ├── scene_064_comparison.html
+│   ├── scene_065_comparison.html
+│   ├── scene_066_comparison.html
+│   ├── scene_067_comparison.html
+│   ├── scene_068_comparison.html
+│   ├── scene_069_comparison.html
+│   ├── scene_070_comparison.html
+│   ├── scene_071_comparison.html
+│   ├── scene_072_comparison.html
+│   ├── scene_073_comparison.html
+│   ├── scene_074_comparison.html
+│   ├── scene_075_comparison.html
+│   ├── scene_076_comparison.html
+│   ├── scene_077_comparison.html
+│   ├── scene_078_comparison.html
+│   ├── scene_079_comparison.html
+│   ├── scene_080_comparison.html
+│   ├── scene_081_comparison.html
+│   ├── scene_082_comparison.html
+│   ├── scene_083_comparison.html
+│   ├── scene_084_comparison.html
+│   ├── scene_085_comparison.html
+│   ├── scene_086_comparison.html
+│   ├── scene_087_comparison.html
+│   ├── scene_088_comparison.html
+│   ├── scene_089_comparison.html
+│   ├── scene_090_comparison.html
+│   ├── scene_091_comparison.html
+│   ├── scene_092_comparison.html
+│   ├── scene_093_comparison.html
+│   ├── scene_094_comparison.html
+│   ├── scene_095_comparison.html
+│   ├── scene_096_comparison.html
+│   ├── scene_097_comparison.html
+│   ├── scene_098_comparison.html
+│   ├── significance_tests.json
+│   ├── sweep_thresh_050.json
+│   ├── sweep_thresh_050_summary.json
+│   ├── sweep_thresh_060.json
+│   ├── sweep_thresh_060_summary.json
+│   ├── sweep_thresh_070.json
+│   ├── sweep_thresh_070_summary.json
+│   ├── sweep_thresh_080.json
+│   ├── sweep_thresh_080_summary.json
+│   ├── sweep_val_thresh_050.json
+│   ├── sweep_val_thresh_050_summary.json
+│   ├── sweep_val_thresh_060.json
+│   ├── sweep_val_thresh_060_summary.json
+│   ├── sweep_val_thresh_070.json
+│   ├── sweep_val_thresh_070_summary.json
+│   ├── sweep_val_thresh_080.json
+│   ├── sweep_val_thresh_080_summary.json
+│   └── test.txt
+├── harvest.config.js
+├── labelling.ipynb
+├── labelling_m.ipynb
+├── logs
+│   ├── training_log.json
+│   ├── training_log_20251209.json
+│   ├── training_log_20251209_da.json
+│   └── training_log_20251209_da_rs.json
+├── matrix.config.js
+├── models
+│   ├── roof_segmentation_dgcnn_20251209.pth
+│   ├── roof_segmentation_dgcnn_20251209_da.pth
+│   ├── roof_segmentation_dgcnn_20251209_da_rs.pth
+│   └── roof_segmentation_dgcnn_best.pth
+├── paper
+│   └── figures
+│       ├── architecture.tex
+│       ├── feature_importance.pdf
+│       ├── pipeline.tex
+│       └── qualitative.pdf
+├── post_processing.py
+├── pre.ipynb
+├── pyproject.toml
+├── qualitative.config.js
+├── reproduce.config.js
+├── requirements.txt
+├── reviews
+│   └── REVIEWER_2_REPORT.md
+├── roof_segmentation_dgcnn_best.pth
+├── roofseg
+│   ├── __init__.py
+│   ├── baselines
+│   │   ├── __init__.py
+│   │   ├── region_growing.py
+│   │   └── softmax_classifier.py
+│   ├── cli
+│   │   ├── __init__.py
+│   │   └── evaluate.py
+│   ├── clustering.py
+│   ├── data
+│   │   ├── __init__.py
+│   │   ├── building3d.py
+│   │   └── loader.py
+│   ├── device.py
+│   ├── inference.py
+│   ├── metrics.py
+│   ├── models
+│   │   ├── __init__.py
+│   │   └── loader.py
+│   ├── refinement
+│   │   ├── __init__.py
+│   │   ├── classifier_training.py
+│   │   ├── cluster_graph.py
+│   │   ├── features.py
+│   │   ├── folds.py
+│   │   ├── greedy_merge.py
+│   │   ├── pipeline.py
+│   │   ├── scoring.py
+│   │   └── training_data.py
+│   ├── seed.py
+│   └── training.py
+├── scripts
+│   ├── aggregate_ablation_matrix.py
+│   ├── analyze_feature_ablation.py
+│   ├── analyze_significance.py
+│   ├── convert_building3d.py
+│   ├── dump_predictions.py
+│   ├── evaluate.py
+│   ├── harvest_fold.py
+│   ├── plot_feature_importance.py
+│   ├── plot_qualitative.py
+│   ├── prepare_folds.py
+│   ├── refresh_local.sh
+│   ├── run_ablation_eval.sh
+│   ├── run_ablation_matrix.sh
+│   ├── run_all_evals.sh
+│   ├── run_building3d_eval.sh
+│   ├── run_harvest.sh
+│   ├── run_threshold_sweep.sh
+│   ├── run_val_threshold_sweep.sh
+│   ├── train_merge_classifier.py
+│   └── train_softmax_baseline.py
+├── sweep.config.js
+├── testneva.ipynb
+├── testneva_2.ipynb
+├── testneva_3.ipynb
+├── tests
+│   ├── __init__.py
+│   ├── test_building3d.py
+│   ├── test_folds.py
+│   ├── test_harvester.py
+│   ├── test_metrics.py
+│   ├── test_refinement.py
+│   ├── test_region_growing.py
+│   └── test_softmax_classifier.py
+├── trainModel.py
+├── training.config.js
+├── training_curve.png
+├── tree.txt
+├── val_threshold.config.js
+├── vis_training.ipynb
+└── visual.ipynb
+
+34 directories, 259 files
